@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OPEA整列ゲーム</title>
+</head>
+<body background="wallppr069.gif">
+<h1 align="center">OPEA整列ゲーム</h1>
+<script type="text/javascript"><!--
+myImageCnt = 4;                           // 画像の数
+myImage = new Array(                      // 画像ファイル名の設定
+ "o_1.gif",
+ "p_2.gif",
+ "e_3.gif",
+ "a_4.gif"
+);
+myBuffer = new Array(myImageCnt);         // 画像イメージを収納するバッファ
+
+for(i=0; i<myImageCnt; i++){              // 画像イメージをメモリに取込む
+  myBuffer[i] = new Image();
+  myBuffer[i].src  = myImage[i];
+}
+
+myStartFlg = 0; // スタートボタンフラグ (0:動いていない 1:動いている)
+myStopFlg1 = 0; // ボタン1フラグ (-1:動いている 0～n:止まっている)
+myStopFlg2 = 0; // ボタン2フラグ (-1:動いている 0～n:止まっている)
+myStopFlg3 = 0; // ボタン3フラグ (-1:動いている 0～n:止まっている)
+myStopFlg4 = 0; // ボタン4フラグ (-1:動いている 0～n:止まっている)
+
+function myStart(){     // ボタンが押された
+  if (myStartFlg == 0){ // 既に押していなければ、
+    myStartFlg = 1;     // スタート!
+    myStopFlg1 = -1;    // ボタン1回転!
+    myStopFlg2 = -1;    // ボタン2回転!
+    myStopFlg3 = -1;    // ボタン3回転!
+    myStopFlg4 = -1;    // ボタン4回転!
+    myLoop();
+  }
+}
+
+function myLoop(){                                    // 回転させるルーチン
+  if (myStopFlg1==-1||myStopFlg2==-1||myStopFlg3==-1||myStopFlg4==-1){ // まだどこか回転しているか？
+    
+    if (myStopFlg1==-1){                              // ボタン1は回転しているか？
+      myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+      document.myFormImg1.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    }
+    if (myStopFlg2==-1){                              // ボタン2は回転しているか？
+      myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+      document.myFormImg2.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    }
+    if (myStopFlg3==-1){                              // ボタン3は回転しているか？
+       myRnd = Math.floor(Math.random()*myImageCnt);  // 乱数を求める
+       document.myFormImg3.src = myBuffer[myRnd].src; // 乱数番目の画像を表示する
+    }
+    if (myStopFlg4==-1){                              // ボタン4は回転しているか？
+       myRnd = Math.floor(Math.random()*myImageCnt);  // 乱数を求める
+       document.myFormImg4.src = myBuffer[myRnd].src; // 乱数番目の画像を表示する
+    }
+    
+    setTimeout( "myLoop()" , 50 );                    // ぐるぐる回転させる!
+  }else{
+    myStartFlg = 0;                                   // 全部止まった
+  }
+}
+
+function myStop1(){                                 // ボタン1が押された
+  if (myStopFlg1 == -1){                            // ボタン１は回転しているか？
+    myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+    document.myFormImg1.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    myStopFlg1 = myRnd;                             // 止まった画像の番号を退避
+  }
+}
+function myStop2(){                                 // ボタン2が押された
+  if (myStopFlg2 == -1){                            // ボタン2は回転しているか？
+    myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+    document.myFormImg2.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    myStopFlg2 = myRnd;                             // 止まった画像の番号を退避
+  }
+}
+function myStop3(){                                 // ボタン3が押された
+  if (myStopFlg3 == -1){                            // ボタン3は回転しているか？
+    myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+    document.myFormImg3.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    myStopFlg3 = myRnd;                             // 止まった画像の番号を退避
+  }
+}
+function myStop4(){                                 // ボタン4が押された
+  if (myStopFlg4 == -1){                            // ボタン4は回転しているか？
+    myRnd = Math.floor(Math.random()*myImageCnt);   // 乱数を求める
+    document.myFormImg4.src = myBuffer[myRnd].src;  // 乱数番目の画像を表示する
+    myStopFlg4 = myRnd;                             // 止まった画像の番号を退避
+  }
+}
+
+// --></script>
+
+<table border="2" align="center">
+<tr>
+<td align="center" colspan="4">
+<form><input type="button" value="START" onclick="myStart()"></form>
+</td>
+</tr>
+<tr>
+<td><img src="o_1.gif" name="myFormImg1"></td>
+<td><img src="p_2.gif" name="myFormImg2"></td>
+<td><img src="e_3.gif" name="myFormImg3"></td>
+<td><img src="a_4.gif" name="myFormImg4"></td>
+</tr>
+<tr>
+<td><form><input type="button" value="STOP" onclick="myStop1()"></form></td>
+<td><form><input type="button" value="STOP" onclick="myStop2()"></form></td>
+<td><form><input type="button" value="STOP" onclick="myStop3()"></form></td>
+<td><form><input type="button" value="STOP" onclick="myStop4()"></form></td>
+</tr>
+</table>
+<br>
+<p align="center">[START]と[STOP]ボタンを押して、遊んでください。<br><br>
+OPEAとなる確率は1/256です。<br>「O, P, E, A」がそれぞれ４つ（フォーカード）の確率は1/64です。<br>
+「O, P, E, A」がそれぞれ３つ（スリーカード）の確率は1/16です。
+</p>
+<br>
+<center>
+<iframe src="stopwatch.html" name="term" width="200" height="100" align="middle"></iframe>
+</center>
+</body>
+</html>

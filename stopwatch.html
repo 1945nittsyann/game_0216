@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ストップウォッチ</title>
+</head>
+<body background="wallppr069.gif">
+	
+	<input type="button" id="id1" value="スタート" />
+	<input type="button" id="id2" value="クリア" />
+	<br />
+	<br />
+	<input type="text" id="id3" value="経過時間" />秒
+</body>
+<script type="text/javascript">
+	var counter = 0;
+	var timer = null;
+// カウンター
+	function countup(){
+		document.getElementById( "id3" ).value = counter;
+		counter++;
+	}
+
+	// スタート、ストップボタンが押された時の処理
+	document.getElementById( "id1" ).onclick = function(){
+		if(timer == null){
+			countup();
+			timer = setInterval(countup , 1000);
+			document.getElementById( "id1" ).value = "ストップ";
+		}else{
+			clearInterval(timer);
+			timer = null;
+			document.getElementById( "id1" ).value = "スタート";
+		}
+	};
+
+
+	// クリアボタンが押されたときの処理
+	document.getElementById( "id2" ).onclick = function(){
+		counter = 0;
+		document.getElementById( "id3" ).value = counter;
+	};
+
+</script>
+</html>
+
+
+
